@@ -14,5 +14,23 @@ export default{
     async list():Promise<ListDTOS[]>{
         const lists = await listRepository.list();
         return lists;
+    },
+    async update({id, name}:UpdateListDTOS):Promise<UpdateListDTOS>{
+        const updatedList = await listRepository.update({
+            id,
+            name
+        });
+        return updatedList;
+    },
+    async delete(id: string): Promise<Boolean> {
+        const response = await listRepository.delete(id);
+        return response;
+    },
+    async findById(id: string): Promise<ListDTOS | null> {
+        const list = await listRepository.findById(id);
+        if (list === null) {
+            throw new Error("List not found");
+        }
+        return list;
     }
 }

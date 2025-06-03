@@ -1,26 +1,27 @@
 import { Priority } from "@prisma/client";
 
-export interface TaskDTOS{
-    id:String;
-    name:String;
-    description:String;
+export interface TaskDTOS {
+    id: string;
+    name: string;
+    description: string;
     priority: Priority;
     expectedFinishDate: Date;
-    listId: String;
-
+    listId: string;
 }
 
-export interface CreateTaskDTOS{
-    name:String;
-    description:String;
+export interface CreateTaskDTOS {
+    name: string;
+    description: string;
     priority: Priority;
     expectedFinishDate: Date;
-    listId: String;
+    listId: string;
 }
-export interface UpdateTaskDTOS{
-    name:String;
-    description:String;
+
+export interface UpdateTaskDTOS {
+    id: string;
+    name: string;
+    description: string;
     priority: Priority;
     expectedFinishDate: Date;
-    listId: String;
+    listId: string;
 }

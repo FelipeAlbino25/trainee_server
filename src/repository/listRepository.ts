@@ -15,12 +15,53 @@ export default{
 
         return response;
     },
+
+    async findById(id: string): Promise<ListDTOS | null> {
+        const response = await client.list.findUnique({
+            where: { id },
+            include: {
+                tasks: true
+            }
+        });
+
+        if(response === null) {
+            throw new Error("List not found");
+        }   
+        return response;
+    },
     async create(data: CreateListDTOS):Promise<CreateListDTOS>{
+
+        const existingList = await client.list.findFirst({
+            where: {
+                name: data.name
+            }
+        });
+
+        if(existingList) {
+            throw new Error("List with this name already exists");
+        }
+
         const response = await client.list.create({
             data
         })
 
         return response;
     }
-   
+    ,
+    async update(data: UpdateListDTOS): Promise<UpdateListDTOS> {
+        const response = await client.list.update({
+            where: { id: data.id },
+            data: {
+                name: data.name,
+            }
+        });
+        return response;
+    },
+    async delete(id: string): Promise<Boolean> {
+        const response = await client.list.delete({ where: { id } });
+        if(response) {
+            return true;
+        }
+        return false;
+    } 
 }

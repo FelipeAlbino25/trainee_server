@@ -5,6 +5,7 @@ export interface CreateListDTOS{
 }
 
 export interface UpdateListDTOS{
+    id: string;
     name:string;
 }
 

@@ -28,9 +28,9 @@ model List{
 model Task{
   id String @id @default(uuid())
   name String
-  description String
+  description String?
   priority Priority @default(MEDIUM)
-  expectedFinishDate DateTime
+  expectedFinishDate DateTime?
   listId String
   list List @relation(fields: [listId], references: [id]) 
 }
