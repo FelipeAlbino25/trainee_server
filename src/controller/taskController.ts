@@ -11,7 +11,7 @@ import { CreateTaskDTOS, UpdateTaskDTOS } from '../dtos/taskDtos';
     const create = async(request: Request, response: Response) =>{
         try{
         const data = await taskService.create(request.body as CreateTaskDTOS);
-        response.status(200).json(data);
+        response.status(201).json(data);
         }
         catch(error) {
             response.status(500).json({ error: "Error creating task" });

@@ -2,6 +2,8 @@ import {Request, Response} from 'express';
 
 import listService from '../service/listService';
 import { CreateListDTOS, UpdateListDTOS } from '../dtos/listDtos';
+import { beforeAll } from 'vitest';
+
 
 export default{
     async list(request: Request, response: Response){
@@ -10,9 +12,15 @@ export default{
         response.status(200).json(data);
     },
     async create(request: Request, response: Response){
+        try{
         const data =await listService.create(request.body)
         
-        response.status(200).json(data);
+        response.status(201).json(data);
+        }
+        catch(error) {
+            console.error("Error creating list:", error);
+            response.status(500).json({ error: "Error creating list" });
+        }
     },
     async update(request: Request, response: Response){
         const { id } = request.params;
