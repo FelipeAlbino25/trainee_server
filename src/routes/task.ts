@@ -13,7 +13,7 @@ routes.put('/:id',taskController.update);
 
 routes.delete('/:id',taskController.delete);
 
-routes.get('/:listId', taskController.findByListId);
+routes.get('/listId/:listId', taskController.findByListId);
 
 
 export default routes; 

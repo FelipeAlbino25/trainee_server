@@ -24,22 +24,26 @@ export default{
         response.status(200).json(data);
     },
     async delete(request: Request, response: Response){
-        const { id } = request.params;
-        const responseDelete = await listService.delete(id);
-
-        if (responseDelete) {
-            return response.status(200).json({ message: "List deleted successfully" });
-        } else {
-            return response.status(404).json({ message: "List not found" });
+        try{
+            const result = await listService.delete(request.params.id);
+            response.status(200).json(result);
+        }
+        catch (error) {
+            response.status(500).json({ error: "Error deleting list" });
         }
     },
     async findById(request: Request, response: Response){
-        const { id } = request.params;
-        try {
-            const data = await listService.findById(id);
-            return response.status(200).json(data);
-        } catch (error) {
-            return response.status(404).json({ message: "List not found" });
+        try{
+            const data = await listService.findById(request.params.id);
+            if (data) {
+                response.status(200).json(data);
+            }
+            else {
+                response.status(404).json({ message: "List not found" });
+            }
+        }
+        catch(error){
+            response.status(500).json({ error: "Error finding list by ID" });
         }
     },
 
