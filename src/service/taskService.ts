@@ -1,7 +1,6 @@
 import taskRepository from "../repository/taskRepository";
 
 import { TaskDTOS, UpdateTaskDTOS, CreateTaskDTOS } from "../dtos/taskDtos";
-import { Task } from "../../generated/prisma";
 
 export default {
     async create({ name, description,priority,expectedFinishDate, listId }: CreateTaskDTOS): Promise<CreateTaskDTOS> {
