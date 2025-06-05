@@ -26,7 +26,7 @@ export default{
         const { id } = request.params;
         const data = await listService.update({
             id,
-            ...request.body
+            name: request.body.name
         } as UpdateListDTOS);
 
         response.status(200).json(data);
