@@ -209,3 +209,13 @@ UpdateTaskDTOS {
 | Parâmetro | Resposta | Código de Status |
 |:-------- | :---------| :-|
 |req.Param -> String: listId| Array: TaskDTOS[ ]  | 200|
+
+#### Deletar Atividades por Lista.id
+
+```http
+  DELETE /api/v1/tasks/listId/:listId
+```
+
+| Parâmetro | Resposta | Código de Status |
+|:-------- | :---------| :-|
+|req.Param -> String: listId| Boolean: True(deleted) / False(error)  | 200|

@@ -15,7 +15,14 @@ describe('GET api/v1/lists', () => {
     expect(Array.isArray(response.body)).toBe(true);
   });
 });
-describe('POST api/v1/lists', () => {
+describe('POST api/v1/lists', async () => {
+
+  const previousLists = await request(app).get('/api/v1/lists');
+  
+  for(let i=0; i<previousLists.body.length; i++){
+    await request(app).delete(`/api/v1/lists/${previousLists.body[i].id}`);
+  }
+
   it('POST /api/v1/lists should return 201 and created list', async () => {
     const newList = {
       name: 'Test List0001',
@@ -79,7 +86,13 @@ describe('GET api/v1/tasks', () => {
   });
 });
 
-describe('POST api/v1/tasks', () => {
+describe('POST api/v1/tasks', async () => {
+
+  const previousLists = await request(app).get('/api/v1/lists');
+  for(let i=0; i<previousLists.body.length; i++){
+    await request(app).delete(`/api/v1/tasks/listId/${previousLists.body[i].id}`)
+    await request(app).delete(`/api/v1/lists/${previousLists.body[i].id}`);
+  }
   it('POST /api/v1/tasks should return 201 and created task', async () => {
     const newList={
       name:"Test List for Task0001",
@@ -99,7 +112,13 @@ describe('POST api/v1/tasks', () => {
   });
 });
 
-describe('PUT api/v1/tasks/:id', () => {
+describe('PUT api/v1/tasks/:id', async() => {
+
+  const previousLists = await request(app).get('/api/v1/lists');
+  
+  for(let i=0; i<previousLists.body.length; i++){
+    await request(app).delete(`/api/v1/lists/${previousLists.body[i].id}`);
+  }
 
     it('PUT /api/v1/tasks/:id should return 200 and updated task', async () => {
     const newList = await request(app)
@@ -145,7 +164,15 @@ describe('DELETE api/v1/tasks/:id', () => {
   });
 })
 
-describe('GET api/v1/tasks/:id', () => {
+describe('GET api/v1/tasks/:id', async() => {
+
+  const previousLists = await request(app).get('/api/v1/lists');
+  
+  for(let i=0; i<previousLists.body.length; i++){
+    await request(app).delete(`/api/v1/lists/${previousLists.body[i].id}`);
+  }
+
+
   it('GET /api/v1/tasks/:id should return 200 and foundTask', async () => {
     const newList = await request(app)
       .post('/api/v1/lists').send({ name: 'FindByIdTestListForTask0001' });

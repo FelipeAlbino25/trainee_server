@@ -54,5 +54,16 @@ export default{
         }   
         return response;
     } ,
+    async deleteByListId(listId: string): Promise<Boolean> {
+        try{
+        await client.task.deleteMany({where:{listId}})
+        return true;
+        }
+        catch(error){
+            console.log(error);
+            return false
+        }
+        
+    }
 
 }

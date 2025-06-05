@@ -47,5 +47,15 @@ export default {
             throw new Error("Task not found");
         }
         return task;
+    },
+    async deleteByListId(listId: string): Promise<Boolean>{
+        try{
+        const response = await taskRepository.deleteByListId(listId)
+        return true;
+        }
+        catch(error){
+            console.error(error)
+            return false;
+        }
     }
 };

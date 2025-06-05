@@ -58,12 +58,23 @@ import { CreateTaskDTOS, UpdateTaskDTOS } from '../dtos/taskDtos';
         }
     }
 
+    const deleteByListId = async(request: Request, response: Response): Promise<void> =>{
+        try{
+            const result = await taskService.deleteByListId(request.params.listId);
+            response.status(200).json(result);
+        }
+        catch(err){
+            console.error(err)
+        }
+    }
+
     const taskController = {
         list,
         create,
         update,
         delete: deleteById,
         findById,
-        findByListId: findByListId
+        findByListId: findByListId,
+        deleteByListId
     } 
     export default taskController;

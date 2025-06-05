@@ -15,5 +15,7 @@ routes.delete('/:id',taskController.delete);
 
 routes.get('/listId/:listId', taskController.findByListId);
 
+routes.delete('/listId/:listId',taskController.deleteByListId)
+
 
 export default routes; 
