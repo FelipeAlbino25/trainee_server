@@ -209,13 +209,3 @@ UpdateTaskDTOS {
 | Parâmetro | Resposta | Código de Status |
 |:-------- | :---------| :-|
 |req.Param -> String: listId| Array: TaskDTOS[ ]  | 200|
-
-
-
-
-
-
-
-
-
-s
