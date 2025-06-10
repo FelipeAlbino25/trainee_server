@@ -12,5 +12,5 @@ export interface UpdateListDTOS{
 export interface ListDTOS{
     id: string;
     name: string;
-    tasks: TaskDTOS[]
+    tasks: TaskDTOS[]|null
 }

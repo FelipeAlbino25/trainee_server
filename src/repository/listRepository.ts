@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { List, PrismaClient } from "@prisma/client";
 
 import { ListDTOS, UpdateListDTOS, CreateListDTOS } from "../dtos/listDtos";
 
@@ -16,17 +16,13 @@ export default{
         return response;
     },
 
-    async findById(id: string): Promise<ListDTOS | null> {
+    async findById(id: string): Promise<ListDTOS|null> {
         const response = await client.list.findUnique({
             where: { id },
             include: {
                 tasks: true
             }
         });
-
-        if(response === null) {
-            throw new Error("List not found");
-        }   
         return response;
     },
     async create(data: CreateListDTOS):Promise<CreateListDTOS>{
@@ -58,10 +54,20 @@ export default{
         return response;
     },
     async delete(id: string): Promise<Boolean> {
+        await client.task.deleteMany({where:{listId:id}})
         const response = await client.list.delete({ where: { id } });
         if(response) {
             return true;
         }
         return false;
-    } 
+    },
+    async findByName(name: string): Promise<ListDTOS|null>{
+        const response = await client.list.findUnique({
+            where:{name:name},
+            include:{
+                tasks:true
+            }
+        });
+        return response
+    }
 }

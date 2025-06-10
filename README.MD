@@ -1,4 +1,5 @@
 
+
 # Projeto Trainee CATI.JR Backend
 
 Repositório para armazenar a API do projeto de Trainee no Processo Seletivo da Empresa Jr. Cati.
@@ -40,13 +41,19 @@ Foi utilizado a tecnologia Vitest para a criação dos testes unitários deste r
 Para rodar os testes digite no terminal:
 
 ```bash
-  npm test
+// Dentro do projeto trainee_server/
+
+// 1. Teste unitário da entidade List
+    npx vitest run tests/list.test.ts
+
+// 2. Teste unitário da entidade Task
+    npx vitest run tests/task.test.ts
 ```
 
 
-## Referências API
+## Entidades
 
-### Entidade: List
+### List
 ```
 CreateListDTOS{
     name: string;
@@ -63,56 +70,6 @@ ListDTOS{
     tasks: TaskDTOS[]
 }
 ```
-#### Listar todas as Listas
-
-```http
-  GET /api/v1/lists
-```
-
-| Parâmetro | Resposta | Código de Status |
-|:-------- | :---------| :-------- |
-| N/A | Array: ListDTOS [ ]  | 200 |
-
-#### Criar uma Listar
-
-```http
-  POST /api/v1/lists
-```
-
-| Parâmetro | Resposta | Código de Status|
-|:-------- | :---------| :- |
-| req.Body -> Object: CreateListDTOS | Object: CreateListDTOS  | 201 |
-
-#### Buscar Lista por id
-
-```http
-  GET /api/v1/lists/:id
-```
-
-| Parâmetro | Resposta | Código de Status |
-|:-------- | :---------| :- |
-| req.Param -> String: id |Object: ListDTOS| 200 |
-
-#### Atualizar uma Lista
-
-```http
-  PUT /api/v1/lists/:id
-```
-
-| Parâmetro | Resposta | Código de Status |
-|:-------- | :---------| :-- |
-| req.Param -> String: id | Object: UpdateListDTOS   | 200 |
-| req.Body -> String: name| 
-
-#### Excluir uma Lista
-
-```http
-  DELETE /api/v1/lists/:id
-```
-
-| Parâmetro | Resposta | Código de Status|
-|:-------- | :---------| :-- |
-| req.Param -> String | Boolean: True (deleted) / False (error) |200 |
 
 
 ### Entidade: Task
@@ -143,79 +100,7 @@ UpdateTaskDTOS {
     expectedFinishDate?: Date|null;
     listId: string;
 }
-``
 
-#### Listar todas as Atividades
-
-```http
-  GET /api/v1/tasks
 ```
-
-| Parâmetro | Resposta | Código de Status |
-|:-------- | :---------| :-- |
-| N/A | Array: TaskDTOS [ ]  | 200 |
-
-#### Criar uma Atividade
-
-```http
-  POST /api/v1/tasks
-```
-
-| Parâmetro | Resposta | Código de Status |
-|:-------- | :---------| :-|
-| req.Body -> Object: CreateTaskDTOS     | Object: CreateTaskDTOS  | 201|
-
-
-#### Buscar Atividade por id
-
-```http
-  GET /api/v1/tasks
-```
-
-| Parâmetro | Resposta | Código de Status |
-|:-------- | :---------| :-|
-| req.param -> String: id | Object: TaskDTOS | 200|
-
-
-#### Atualizar uma Atividade
-
-```http
-  PUT /api/v1/tasks
-```
-
-| Parâmetro | Resposta | Código de Status |
-|:-------- | :---------| :-- |
-| req.Param -> String: id | Object: UpdateTaskDTOS  | 200 |
-| req.Body -> UpdateTaskDTOS.attributes| 
-
-
-#### Excluir uma Atividade
-
-```http
-  DELETE /api/v1/tasks
-```
-
-| Parâmetro | Resposta | Código de Status |
-|:-------- | :---------| :-|
-| req.Param -> String:id| Boolean: True (deleted) / False (error)  | 200|
-
-
-#### Buscar Atividade por Lista.id
-
-```http
-  GET /api/v1/tasks/listId/:listId
-```
-
-| Parâmetro | Resposta | Código de Status |
-|:-------- | :---------| :-|
-|req.Param -> String: listId| Array: TaskDTOS[ ]  | 200|
-
-#### Deletar Atividades por Lista.id
-
-```http
-  DELETE /api/v1/tasks/listId/:listId
-```
-
-| Parâmetro | Resposta | Código de Status |
-|:-------- | :---------| :-|
-|req.Param -> String: listId| Boolean: True(deleted) / False(error)  | 200|
+## Referência da API
+Com o servidor ativo, acesse `` http://localhost:3000/docs/`` através de seu navegador de escolha, os HTTP Requests estão todos disponíveis nesa página detalhadamente. Utilize, se necessário, as entidades disponibilizadas (DTOS) no README.md.

@@ -26,11 +26,12 @@ export default{
         const response = await listRepository.delete(id);
         return response;
     },
-    async findById(id: string): Promise<ListDTOS | null> {
+    async findById(id: string): Promise<ListDTOS|null> {
         const list = await listRepository.findById(id);
-        if (list === null) {
-            throw new Error("List not found");
-        }
+        return list;
+    },
+    async findByName(name: string): Promise<ListDTOS|null>{
+        const list = await listRepository.findByName(name);
         return list;
     }
 }

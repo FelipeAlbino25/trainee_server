@@ -2,48 +2,94 @@ import {Request, Response} from 'express';
 
 import listService from '../service/listService';
 import { CreateListDTOS, UpdateListDTOS } from '../dtos/listDtos';
-import { beforeAll } from 'vitest';
 
 
-export default{
-    async list(request: Request, response: Response){
+
+    const list = async(request: Request, response: Response):Promise<void>=>{
         const data = await listService.list();
 
         response.status(200).json(data);
-    },
-    async create(request: Request, response: Response){
-        try{
-        const data =await listService.create(request.body)
-        
-        response.status(201).json(data);
-        }
-        catch(error) {
+    }
+    const create = async(request: Request, response: Response): Promise<void>=> {
+        try {
+            const { name } = request.body;
+    
+            if (!name || typeof name !== 'string' || name.trim() === '') {
+                response.status(400).json({
+                    msg: "error creating list because name field was malformed",
+                });
+            }
+    
+            const data = await listService.create({ name } as CreateListDTOS);
+    
+            response.status(201).json(data);
+
+        } catch (error: any) {
             console.error("Error creating list:", error);
-            response.status(500).json({ error: "Error creating list" });
+            const {name} = request.body;
+            const checkDuplicateList = listService.findByName(name);
+            if (checkDuplicateList!=null) {
+                response.status(409).json({
+                    error: "A list with that name already exists.",
+                });
+            }
+    
+            response.status(500).json({
+                error: "Internal server error. Please try again later.",
+            });
         }
-    },
-    async update(request: Request, response: Response){
-        const { id } = request.params;
+    }   
+    const update = async(request: Request, response: Response):Promise<void>=>{
+        try{
+        const { id} = request.params;
+        const {name} = request.body;
+        const findListById = listService.findById(id);
+
+        if(findListById==null){
+            response.status(404).json({msg:"A list with this id:"+id+" was not found"})
+        }
+        if(name == null || typeof name !='string' || name.trim()==''){
+            response.status(400).json({msg:"Name field from 'List' object was malformed"})
+        }
+
         const data = await listService.update({
             id,
-            name: request.body.name
+            name
         } as UpdateListDTOS);
 
         response.status(200).json(data);
-    },
-    async delete(request: Request, response: Response){
+        }
+        catch(error){
+            console.error("Error updating list:",error);      
+
+            response.status(500).json({msg:'error updating list'})
+        }
+    }
+    const deleteById = async(request: Request, response: Response):Promise<void>=>{
         try{
-            const result = await listService.delete(request.params.id);
+
+            const {id} = request.params;
+
+            if(await listService.findById(id)==null){
+                response.status(404).json({msg:"A List with this id:"+id+" was not found"})
+            }
+
+            const result = await listService.delete(id);
             response.status(200).json(result);
         }
         catch (error) {
-            response.status(500).json({ error: "Error deleting list" });
+
+            console.error("Error deleting List:",error);
+
+            response.status(500).json({msg:"Error deleting list by id"})
+
+           
         }
-    },
-    async findById(request: Request, response: Response){
+    }
+    const findById = async(request: Request, response: Response):Promise<void>=>{
         try{
             const data = await listService.findById(request.params.id);
-            if (data) {
+            if (data!=null) {
                 response.status(200).json(data);
             }
             else {
@@ -51,8 +97,21 @@ export default{
             }
         }
         catch(error){
+
+            console.error("error finding list by id:",error);
+
             response.status(500).json({ error: "Error finding list by ID" });
         }
-    },
+    }
 
-}
+    const listController = {
+        list,
+        create,
+        update,
+        deleteById,
+        findById
+    }
+
+    export default listController
+
+
