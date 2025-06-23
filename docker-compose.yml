@@ -1,0 +1,13 @@
+
+services:
+  app:
+    build: .
+    volumes:
+      - ./prisma/dev.db:/usr/src/app/prisma/dev.db
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL
+    command: sh -c "echo DATABASE_URL=$DATABASE_URL && sleep 3600"                              
