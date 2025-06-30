@@ -225,7 +225,9 @@ routes.put('/:id', listController.update);
  *               properties:
  *                 msg:
  *                   type: string
- */
+ */ 
 routes.delete('/:id', listController.deleteById);
+
+routes.get('/listName/:name',listController.findByName)
 
 export default routes;

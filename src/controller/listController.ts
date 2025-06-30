@@ -1,6 +1,7 @@
 import {Request, Response} from 'express';
 
 import listService from '../service/listService';
+import { ListDTOS } from '../dtos/listDtos';
 import { CreateListDTOS, UpdateListDTOS } from '../dtos/listDtos';
 
 
@@ -104,12 +105,34 @@ import { CreateListDTOS, UpdateListDTOS } from '../dtos/listDtos';
         }
     }
 
+    const findByName = async (request: Request, response: Response): Promise<void> =>{
+        try{
+
+            const {name} = request.params;
+            if(name == null || typeof name !='string' ||  name.trim()==''){
+                response.status(400).json({msg:'listName malformed'})
+            }
+            const data = await listService.findByName(name);
+            if(data!=null){
+                response.status(200).json(data);
+            }
+            else{
+                response.status(404).json({msg:'list not found'})
+            }
+        }
+        catch(error){
+            console.error("error finding list by name :", error);
+            response.status(500).json({error:'Error finding list by name'})
+        }
+    }
+
     const listController = {
         list,
         create,
         update,
         deleteById,
-        findById
+        findById,
+        findByName
     }
 
     export default listController

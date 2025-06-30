@@ -13,24 +13,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Priority{
+enum Priority {
   LOW
   MEDIUM
   HIGH
   VERY_HIGH
 }
 
-model List{
-  id String @id @default(uuid())
-  name String @unique
+model List {
+  id    String @id @default(uuid())
+  name  String @unique
   tasks Task[]
 }
-model Task{
-  id String @id @default(uuid())
-  name String
-  description String?
-  priority Priority @default(MEDIUM)
+
+model Task {
+  id                 String    @id @default(uuid())
+  name               String
+  description        String?
+  priority           Priority  @default(MEDIUM)
   expectedFinishDate DateTime?
-  listId String
-  list List @relation(fields: [listId], references: [id]) 
+  listId             String
+  list               List      @relation(fields: [listId], references: [id])
 }
