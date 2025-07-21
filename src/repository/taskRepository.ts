@@ -64,6 +64,16 @@ export default{
             return false
         }
         
+    },
+    async updateTaskListId(id: string,listId: string): Promise<Boolean>{
+        const response = await client.task.update({
+            where:{id: id},
+            data:{
+                listId: listId
+            }
+        })
+        if(response) return true;
+        return false;
     }
 
 }

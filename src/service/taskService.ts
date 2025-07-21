@@ -51,11 +51,21 @@ export default {
     async deleteByListId(listId: string): Promise<Boolean>{
         try{
         const response = await taskRepository.deleteByListId(listId)
-        return true;
+        return response;
         }
         catch(error){
             console.error(error)
             return false;
+        }
+    },
+    async updateTaskListId(id: string, listId:string) : Promise<Boolean>{
+        try{
+            const response = await taskRepository.updateTaskListId(id,listId)
+            return response;
+        }
+        catch(error){
+            console.error(error);
+            return false
         }
     }
 };

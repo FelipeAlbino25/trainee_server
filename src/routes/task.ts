@@ -316,4 +316,66 @@ routes.get('/listId/:listId', taskController.findByListId);
  */
 routes.delete('/listId/:listId', taskController.deleteByListId);
 
+/**
+ * @swagger
+ * /tasks/moveTask/{id}:
+ *   put:
+ *     summary: Move a task to another list
+ *     tags:
+ *       - Tasks
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: Task ID
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: d53fc99a-98e5-4eb5-bc91-0cf4d973e1d9
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - newListId
+ *             properties:
+ *               newListId:
+ *                 type: string
+ *                 description: ID of the new list to move the task to
+ *                 example: e3aa6cd3-64b2-4522-b20d-ea7f37002fa4
+ *     responses:
+ *       200:
+ *         description: Task successfully moved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 updated:
+ *                   type: boolean
+ *                   example: true
+ *       400:
+ *         description: Bad Request - invalid ID or body
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ *       404:
+ *         description: Task not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ *       500:
+ *         description: Internal Server Error
+ */
+routes.put('/moveTask/:id', taskController.updateTaskListId);
+
 export default routes;

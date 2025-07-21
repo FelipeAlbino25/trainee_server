@@ -156,7 +156,33 @@ import listService from '../service/listService';
             console.error(error)
             response.status(500).json({msg:'error deleting tasks by list id'})
         }
+       
     }
+     const updateTaskListId = async(request: Request, response: Response): Promise<void> =>{
+            try{
+                const {id} = request.params;
+                const {listId} = request.body;
+
+                if( 
+                    listId ==null || typeof listId !=="string" || listId.trim()==="" ||
+                    id ==null || typeof id !=="string" || id.trim()===""
+                ){
+                    response.status(400).json({msg:"updating task failed because one of the fields was malformed"})
+                }
+
+                const newList = listService.findById(listId);
+                if(newList==null){
+                    response.status(404).json({msg:"target list not found by its corresponding id"})
+                }
+
+                const result = await taskService.updateTaskListId(id,listId);
+                response.status(200).json(result);
+            }
+            catch(error){
+                console.error(error)
+                response.status(500).json({msg:'error changing the task from a list to another'})
+            }
+        }
 
     const taskController = {
         list,
@@ -165,6 +191,7 @@ import listService from '../service/listService';
         delete: deleteById,
         findById,
         findByListId: findByListId,
-        deleteByListId
+        deleteByListId,
+        updateTaskListId
     } 
     export default taskController;

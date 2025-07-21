@@ -6,7 +6,7 @@ const options = {
     info: {
       title: 'Task API',
       version: '1.0.0',
-      description: 'API documentation for your Task app',
+      description: 'Documentação da API feita para o projeo trainee da Cati.jr',
     },
     servers: [
       {
