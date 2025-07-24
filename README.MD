@@ -37,7 +37,7 @@ Para que o projeto possa ser rodado localmente em sua máquina, utilize o arquiv
     
 ## Testes da API
 
-Foi utilizado a tecnologia Vitest para a criação dos testes unitários deste repositório.
+Foi utilizado a tecnologia Vitest para a criação dos testes end-to-end deste repositório.
 Para rodar os testes digite no terminal:
 
 ```bash
