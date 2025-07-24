@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import listController from '../controller/ListController';
+import { Router } from 'express'
+import listController from '../controller/ListController'
 
-const routes = Router();
+const routes = Router()
 
 /**
  * @swagger
@@ -20,7 +20,7 @@ const routes = Router();
  *               items:
  *                 type: object
  */
-routes.get('/', listController.list);
+routes.get('/', listController.list)
 
 /**
  * @swagger
@@ -76,7 +76,7 @@ routes.get('/', listController.list);
  *                 error:
  *                   type: string
  */
-routes.post('/', listController.create);
+routes.post('/', listController.create)
 
 /**
  * @swagger
@@ -119,7 +119,7 @@ routes.post('/', listController.create);
  *                 error:
  *                   type: string
  */
-routes.get('/:id', listController.findById);
+routes.get('/:id', listController.findById)
 
 /**
  * @swagger
@@ -183,7 +183,7 @@ routes.get('/:id', listController.findById);
  *                 msg:
  *                   type: string
  */
-routes.put('/:id', listController.update);
+routes.put('/:id', listController.update)
 
 /**
  * @swagger
@@ -225,9 +225,9 @@ routes.put('/:id', listController.update);
  *               properties:
  *                 msg:
  *                   type: string
- */ 
-routes.delete('/:id', listController.deleteById);
+ */
+routes.delete('/:id', listController.deleteById)
 
-routes.get('/listName/:name',listController.findByName)
+routes.get('/listName/:name', listController.findByName)
 
-export default routes;
+export default routes

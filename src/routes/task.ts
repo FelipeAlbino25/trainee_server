@@ -1,7 +1,7 @@
 import express from 'express'
-import taskController from "../controller/TaskController";
+import taskController from '../controller/TaskController'
 
-const routes = express.Router();
+const routes = express.Router()
 /**
  * @swagger
  * /tasks:
@@ -19,7 +19,7 @@ const routes = express.Router();
  *               items:
  *                 type: object
  */
-routes.get('/', taskController.list);
+routes.get('/', taskController.list)
 
 /**
  * @swagger
@@ -79,7 +79,7 @@ routes.get('/', taskController.list);
  *                 msg:
  *                   type: string
  */
-routes.post('/', taskController.create);
+routes.post('/', taskController.create)
 
 /**
  * @swagger
@@ -124,7 +124,7 @@ routes.post('/', taskController.create);
  *       500:
  *         description: Internal Server Error
  */
-routes.get('/:id', taskController.findById);
+routes.get('/:id', taskController.findById)
 
 /**
  * @swagger
@@ -176,7 +176,7 @@ routes.get('/:id', taskController.findById);
  *       500:
  *         description: Internal Server Error
  */
-routes.put('/:id', taskController.update);
+routes.put('/:id', taskController.update)
 
 /**
  * @swagger
@@ -221,7 +221,7 @@ routes.put('/:id', taskController.update);
  *       500:
  *         description: Internal Server Error
  */
-routes.delete('/:id', taskController.deleteById);
+routes.delete('/:id', taskController.deleteById)
 
 /**
  * @swagger
@@ -268,7 +268,7 @@ routes.delete('/:id', taskController.deleteById);
  *       500:
  *         description: Internal Server Error
  */
-routes.get('/listId/:listId', taskController.findByListId);
+routes.get('/listId/:listId', taskController.findByListId)
 
 /**
  * @swagger
@@ -313,7 +313,7 @@ routes.get('/listId/:listId', taskController.findByListId);
  *       500:
  *         description: Internal Server Error
  */
-routes.delete('/listId/:listId', taskController.deleteByListId);
+routes.delete('/listId/:listId', taskController.deleteByListId)
 
 /**
  * @swagger
@@ -375,6 +375,6 @@ routes.delete('/listId/:listId', taskController.deleteByListId);
  *       500:
  *         description: Internal Server Error
  */
-routes.put('/moveTask/:id', taskController.updateTaskListId);
+routes.put('/moveTask/:id', taskController.updateTaskListId)
 
-export default routes;
+export default routes
