@@ -1,8 +1,7 @@
-import { Router } from "express";
-import taskController from '../controller/taskController';
+import express from 'express'
+import taskController from "../controller/TaskController";
 
-const routes = Router();
-
+const routes = express.Router();
 /**
  * @swagger
  * /tasks:
@@ -222,7 +221,7 @@ routes.put('/:id', taskController.update);
  *       500:
  *         description: Internal Server Error
  */
-routes.delete('/:id', taskController.delete);
+routes.delete('/:id', taskController.deleteById);
 
 /**
  * @swagger

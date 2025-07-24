@@ -2,14 +2,14 @@ import listRepository from "../repository/listRepository";
 import { ListDTOS, UpdateListDTOS, CreateListDTOS } from "../dtos/listDtos";
 
 
-export default{
+const listService = {
     async create({name}:CreateListDTOS):Promise<CreateListDTOS>{
-        const newList = await listRepository.create({
-            name
-        })
+            const newList = await listRepository.create({
+                name
+            })
 
-        return newList;
-    },
+            return newList;
+        },
 
     async list():Promise<ListDTOS[]>{
         const lists = await listRepository.list();
@@ -20,6 +20,7 @@ export default{
             id,
             name
         });
+        //verificar os erros aq
         return updatedList;
     },
     async delete(id: string): Promise<Boolean> {
@@ -35,3 +36,6 @@ export default{
         return list;
     }
 }
+
+
+export default listService;
