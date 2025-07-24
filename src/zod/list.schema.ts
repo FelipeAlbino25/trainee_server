@@ -29,7 +29,7 @@ export const findListByIdSchema = z.object({
   }),
 })
 export const findListByNameSchema = z.object({
-  body: z.object({
+  params: z.object({
     name: nameSchema,
   }),
 })

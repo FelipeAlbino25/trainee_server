@@ -41,7 +41,7 @@ class ListController {
   }
 
   async findByName(req: Request, res: Response): Promise<void> {
-    const { name } = findListByNameSchema.shape.body.parse(req.body)
+    const { name } = findListByNameSchema.shape.params.parse(req.params)
     const data = await listService.findByName(name)
     res.status(200).json(data)
   }

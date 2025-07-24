@@ -11,7 +11,7 @@ const prioritySchema = z.enum(Priority).default('MEDIUM')
 
 const listIdSchema = z.string().trim().min(1, 'listId is required')
 
-const expectedFinishDateSchema = z.date()
+const expectedFinishDateSchema = z.date().nullish()
 
 //create TaskController.ts
 export const createTaskSchema = z.object({
