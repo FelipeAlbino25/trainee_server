@@ -6,10 +6,10 @@ enum Priority {
 }
 
 export interface Task {
-  id: string
-  name: string
-  description?: string
-  priority: Priority
-  expectedFinishDate?: Date // DateTime in Prisma corresponds to JS Date
-  listId: string
+  id: string;
+  name: string;
+  description?: string;
+  priority: Priority;
+  expectedFinishDate?: Date; // DateTime in Prisma corresponds to JS Date
+  listId: string;
 }

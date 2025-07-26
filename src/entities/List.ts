@@ -1,6 +1,6 @@
-import { Task } from './Task'
+import { Task } from './Task';
 
 export interface List {
-  id: String
-  tasks: Task[]
+  id: String;
+  tasks: Task[];
 }

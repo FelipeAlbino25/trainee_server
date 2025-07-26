@@ -1,8 +1,8 @@
-import { List, PrismaClient } from '@prisma/client'
+import { List, PrismaClient } from '@prisma/client';
 
-import { ListDTOS, UpdateListDTOS, CreateListDTOS } from '../dtos/listDtos'
+import { ListDTOS, UpdateListDTOS, CreateListDTOS } from '../dtos/listDtos';
 
-const client = new PrismaClient()
+const client = new PrismaClient();
 
 export default {
   async list(): Promise<ListDTOS[]> {
@@ -10,9 +10,9 @@ export default {
       include: {
         tasks: true,
       },
-    })
+    });
 
-    return response
+    return response;
   },
 
   async findById(id: string): Promise<ListDTOS | null> {
@@ -21,15 +21,15 @@ export default {
       include: {
         tasks: true,
       },
-    })
-    return response
+    });
+    return response;
   },
   async create(data: CreateListDTOS): Promise<CreateListDTOS> {
     const response = await client.list.create({
       data,
-    })
+    });
 
-    return response
+    return response;
   },
   async update(data: UpdateListDTOS): Promise<UpdateListDTOS> {
     const response = await client.list.update({
@@ -37,12 +37,12 @@ export default {
       data: {
         name: data.name,
       },
-    })
-    return response
+    });
+    return response;
   },
   async delete(id: string): Promise<void> {
-    await client.task.deleteMany({ where: { listId: id } })
-    await client.list.delete({ where: { id: id } })
+    await client.task.deleteMany({ where: { listId: id } });
+    await client.list.delete({ where: { id: id } });
   },
   async findByName(name: string): Promise<ListDTOS | null> {
     const response = await client.list.findUnique({
@@ -50,7 +50,7 @@ export default {
       include: {
         tasks: true,
       },
-    })
-    return response
+    });
+    return response;
   },
-}
+};

@@ -1,16 +1,16 @@
-import { TaskDTOS } from './taskDtos'
+import { TaskDTOS } from './taskDtos';
 
 export interface CreateListDTOS {
-  name: string
+  name: string;
 }
 
 export interface UpdateListDTOS {
-  id: string
-  name: string
+  id: string;
+  name: string;
 }
 
 export interface ListDTOS {
-  id: string
-  name: string
-  tasks: TaskDTOS[] | null
+  id: string;
+  name: string;
+  tasks: TaskDTOS[] | null;
 }

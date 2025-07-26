@@ -32,6 +32,7 @@ model Task {
   description        String?
   priority           Priority  @default(MEDIUM)
   expectedFinishDate DateTime?
+  finished          Boolean   @default(false)
   listId             String
   list               List      @relation(fields: [listId], references: [id])
 }

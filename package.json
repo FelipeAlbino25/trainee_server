@@ -19,8 +19,6 @@
     "nodemon": "^3.1.10",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.3",
     "zod": "^4.0.7"
   },
   "devDependencies": {
@@ -30,9 +28,12 @@
     "@types/supertest": "^6.0.3",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
+    "@vitest/coverage-v8": "^3.2.4",
     "prisma": "^6.8.2",
     "supertest": "^7.1.1",
     "swagger-autogen": "^2.23.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
     "vitest": "^3.2.1"
   }
 }

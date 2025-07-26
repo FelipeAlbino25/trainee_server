@@ -14,11 +14,7 @@ const options = {
       },
     ],
   },
-  apis: 
-  [
-    './src/routes/task.ts',
-    './src/routes/list.ts'
-  ], // Adjust path to where your route files with swagger comments are located
+  apis: ['./src/routes/task.ts', './src/routes/list.ts'], // Adjust path to where your route files with swagger comments are located
 };
 
 const swaggerSpec = swaggerJsdoc(options);
