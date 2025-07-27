@@ -1,6 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import listController from '../controller/ListController';
 import listService from '../service/listService';
+import { DuplicateError } from '../errors/DuplicateError';
+import { NotFoundError } from '../errors/NotFoundError';
 
 vi.mock('../service/listService');
 
@@ -36,30 +38,59 @@ describe('listController.create', () => {
     expect(res.status).toHaveBeenCalledWith(201);
     expect(res.json).toHaveBeenCalledWith(created);
   });
+
+  it('retorna erro 409 se lista já existe', async () => {
+    const req = { body: { name: 'Nova Lista' } };
+    const error = new DuplicateError('there already exists a list with this name');
+    (listService.create as any).mockRejectedValue(error);
+
+    await expect(listController.create(req as any, res)).rejects.toMatchObject({
+      message: error.message,
+      statusCode: error.statusCode,
+    });
+  });
 });
 
 describe('listController.update', () => {
   it('retorna status 200 ao atualizar uma lista', async () => {
-    const req = {
-      body: { name: 'Atualizado' },
-      params: { id: '1' },
-    };
+    const req = { body: { name: 'Atualizado' }, params: { id: '1' } };
     const updated = { id: '1', name: 'Atualizado' };
     (listService.update as any).mockResolvedValue(updated);
     await listController.update(req as any, res);
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith(updated);
   });
+
+  it('retorna erro 404 se lista não for encontrada', async () => {
+    const req = { body: { name: 'Atualizado' }, params: { id: '999' } };
+    const error = new NotFoundError('list was not found by this id');
+    (listService.update as any).mockRejectedValue(error);
+
+    await expect(listController.update(req as any, res)).rejects.toMatchObject({
+      message: error.message,
+      statusCode: error.statusCode,
+    });
+  });
 });
 
 describe('listController.deleteById', () => {
   it('retorna status 200 ao deletar lista', async () => {
     const req = { params: { id: '1' } };
-    const deleted = { success: true };
-    (listService.delete as any).mockResolvedValue(deleted);
+    (listService.delete as any).mockResolvedValue(undefined);
     await listController.deleteById(req as any, res);
     expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.json).toHaveBeenCalledWith(deleted);
+    expect(res.json).toHaveBeenCalledWith(undefined);
+  });
+
+  it('retorna erro 404 se lista não for encontrada', async () => {
+    const req = { params: { id: '999' } };
+    const error = new NotFoundError('a list was not found by this id');
+    (listService.delete as any).mockRejectedValue(error);
+
+    await expect(listController.deleteById(req as any, res)).rejects.toMatchObject({
+      message: error.message,
+      statusCode: error.statusCode,
+    });
   });
 });
 
@@ -71,6 +102,17 @@ describe('listController.findById', () => {
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith(mockLists[0]);
   });
+
+  it('retorna erro 404 se lista não for encontrada', async () => {
+    const req = { params: { id: '999' } };
+    const error = new NotFoundError('a list was not found by this id');
+    (listService.findById as any).mockRejectedValue(error);
+
+    await expect(listController.findById(req as any, res)).rejects.toMatchObject({
+      message: error.message,
+      statusCode: error.statusCode,
+    });
+  });
 });
 
 describe('listController.findByName', () => {
@@ -80,5 +122,16 @@ describe('listController.findByName', () => {
     await listController.findByName(req as any, res);
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith(mockLists[0]);
+  });
+
+  it('retorna erro 404 se lista não for encontrada por nome', async () => {
+    const req = { params: { name: 'Nome Inexistente' } };
+    const error = new NotFoundError('a list was not found by this name');
+    (listService.findByName as any).mockRejectedValue(error);
+
+    await expect(listController.findByName(req as any, res)).rejects.toMatchObject({
+      message: error.message,
+      statusCode: error.statusCode,
+    });
   });
 });
