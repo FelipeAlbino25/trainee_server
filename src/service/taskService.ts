@@ -61,7 +61,7 @@ export default {
     return updatedTask;
   },
   async delete(id: string): Promise<void> {
-    const existingTask = taskRepository.findById(id);
+    const existingTask = await taskRepository.findById(id);
     if (existingTask == null) {
       throw new NotFoundError('a task was not found with this id during task delete method');
     }
