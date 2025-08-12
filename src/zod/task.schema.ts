@@ -17,7 +17,13 @@ const expectedFinishDateSchema = z
   .union([z.string(), z.date()])
   .optional()
   .transform((val) => (typeof val === 'string' ? new Date(val) : val))
-  .nullable();
+  .nullable()
+  .refine((date) => {
+    if (!date) return true;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return date >= today;
+  });
 
 //create TaskController.ts
 export const createTaskSchema = z.object({

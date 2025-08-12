@@ -9,6 +9,7 @@ import {
   updateTaskListIdSchema,
   updateTaskSchema,
 } from '../zod/task.schema';
+import { CreateTaskDTOS, UpdateTaskDTOS } from '../dtos/taskDtos';
 
 class TaskController {
   async list(req: Request, res: Response): Promise<void> {
@@ -17,8 +18,8 @@ class TaskController {
   }
 
   async create(req: Request, res: Response): Promise<void> {
-    const CreateTaskDTOS = createTaskSchema.shape.body.parse(req.body);
-    const data = await taskService.create(CreateTaskDTOS);
+    const createTaskDTOS = createTaskSchema.shape.body.parse(req.body) as CreateTaskDTOS;
+    const data = await taskService.create(createTaskDTOS);
     res.status(201).json(data);
   }
 
@@ -27,7 +28,7 @@ class TaskController {
       updateTaskSchema.shape.body.parse(req.body);
     const { id } = updateTaskSchema.shape.params.parse(req.params);
 
-    const UpdateTaskDTOS = {
+    const updateTaskDTOS = {
       name: name,
       description: description,
       priority: priority,
@@ -35,8 +36,8 @@ class TaskController {
       expectedFinishDate: expectedFinishDate,
       id: id,
       finished: finished,
-    };
-    const data = await taskService.update(UpdateTaskDTOS);
+    } as UpdateTaskDTOS;
+    const data = await taskService.update(updateTaskDTOS);
     res.status(200).json(data);
   }
 

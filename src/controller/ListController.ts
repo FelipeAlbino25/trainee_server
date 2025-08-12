@@ -16,15 +16,19 @@ class ListController {
   }
 
   async create(req: Request, res: Response): Promise<void> {
-    const { name } = createListSchema.shape.body.parse(req.body);
-    const data = await listService.create({ name } as CreateListDTOS);
+    const createListDTOS = createListSchema.shape.body.parse(req.body) as CreateListDTOS;
+    const data = await listService.create(createListDTOS);
     res.status(201).json(data);
   }
 
   async update(req: Request, res: Response): Promise<void> {
     const { name } = updateListSchema.shape.body.parse(req.body);
     const { id } = updateListSchema.shape.params.parse(req.params);
-    const data = await listService.update({ id, name } as UpdateListDTOS);
+    const updateListDTOS = {
+      id: id,
+      name: name,
+    } as UpdateListDTOS;
+    const data = await listService.update(updateListDTOS);
     res.status(200).json(data);
   }
 
